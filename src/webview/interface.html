@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket Operations</title>
+  <style>
+    /* ── Theme tokens ────────────────────────────────────────────────────────
+       Pure black-and-white booklet/editorial look (Erin's hard rule: NOT the
+       Midnight Tools styling). Everything visual flows through these vars;
+       body[data-theme="dark"] swaps the set. Light is default. Values mirror
+       design/extension.pen (light artboard muCvR / dark artboard cC2rl). */
+    :root {
+      --bg: #ffffff;
+      --grid-bg: #ffffff;
+      --text: #111111;
+      --text-mid: #555555;
+      --text-dim: #8a8a8a;
+      --text-faint: #aea69a;        /* code-attribution line */
+      --rule: #d8d8d8;              /* header rule */
+      --rule-soft: #c9c9c9;         /* footer / card rules */
+      --field-border: #cfcfcf;
+      --field-border-hover: #9a9a9a;
+      --chip-bg: #f4f4f4;
+      --cell-border: #e4e4e4;
+      --cell-empty: #ffffff;
+      --cell-shade: #eeeeee;        /* beat 1 & 3 background band */
+      --hit: #111111;               /* a struck step */
+      --hit-text: #ffffff;
+      --accent-text: #595959;       /* AC caret */
+      --primary-bg: #111111;        /* Insert / Replace button */
+      --primary-text: #ffffff;
+      --menu-bg: #ffffff;
+      --menu-shadow: 0 12px 34px -8px rgba(0,0,0,.22), 0 2px 6px rgba(0,0,0,.08);
+      --overlay: rgba(20,20,20,.34);
+      --focus: #111111;
+    }
+    body[data-theme="dark"] {
+      --bg: #151515;
+      --grid-bg: #171717;
+      --text: #ededed;
+      --text-mid: #a8a8a8;
+      --text-dim: #8a8a8a;
+      --text-faint: #6f6a62;
+      --rule: #363636;
+      --rule-soft: #363636;
+      --field-border: #3a3a3a;
+      --field-border-hover: #565656;
+      --chip-bg: #242424;
+      --cell-border: #2a2a2a;
+      --cell-empty: #1d1d1d;
+      --cell-shade: #232323;
+      --hit: #ededed;
+      --hit-text: #151515;
+      --accent-text: #9a9a9a;
+      --primary-bg: #ededed;
+      --primary-text: #151515;
+      --menu-bg: #202020;
+      --menu-shadow: 0 12px 34px -8px rgba(0,0,0,.6), 0 2px 6px rgba(0,0,0,.4);
+      --overlay: rgba(0,0,0,.5);
+      --focus: #ededed;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: Inter, "AbletonSans", -apple-system, system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      overflow: hidden;                /* views manage their own scroll */
+    }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+    .mono-num { font-variant-numeric: tabular-nums; }
+
+    /* ── App shell ───────────────────────────────────────────────────────── */
+    #app { height: 100%; }
+    .view { height: 100%; display: none; flex-direction: column; padding: 26px 32px 22px; gap: 20px; }
+    .view.active { display: flex; }
+    .rule { height: 1px; background: var(--rule); border: 0; flex: none; }
+    .rule.soft { background: var(--rule-soft); }
+
+    /* ── Header ──────────────────────────────────────────────────────────── */
+    .header { display: flex; align-items: center; justify-content: space-between; flex: none; }
+    .title { font-size: 19px; font-weight: 600; letter-spacing: -.01em; line-height: 1.1; }
+    .subtitle { font-size: 11.5px; color: var(--text-dim); margin-top: 2px; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .count-pill {
+      display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 11px;
+      font-size: 11px; color: var(--text-dim); background: var(--chip-bg);
+      border: 1px solid var(--field-border);
+    }
+    .count-pill:hover { color: var(--text); border-color: var(--field-border-hover); }
+    .theme-toggle {
+      width: 28px; height: 28px; display: grid; place-items: center;
+      border: 1px solid var(--field-border); color: var(--text-mid);
+    }
+    .theme-toggle:hover { border-color: var(--field-border-hover); color: var(--text); }
+    .theme-toggle svg { width: 15px; height: 15px; }
+
+    /* ── Picker bar ──────────────────────────────────────────────────────── */
+    .picker { display: flex; align-items: flex-end; justify-content: space-between; flex: none; }
+    .picker-left { display: flex; flex-direction: column; gap: 7px; }
+    .picker-meta { display: flex; align-items: center; gap: 12px; height: 22px; }
+    .genre-chip {
+      display: inline-flex; align-items: center; gap: 7px; height: 22px; padding: 0 9px;
+      font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+      border: 1px solid var(--field-border);
+    }
+    .genre-chip:hover { border-color: var(--field-border-hover); }
+    .caret { display: inline-flex; color: var(--text-dim); }
+    .caret svg { width: 9px; height: 6px; display: block; }
+    .pattern-count { font-size: 11.5px; color: var(--text-dim); }
+    .pattern-name-row { display: flex; align-items: center; gap: 12px; }
+    .pattern-name { font-size: 27px; font-weight: 700; letter-spacing: -.015em; line-height: 1; }
+    .variants { display: flex; align-items: center; gap: 5px; }
+    .variant {
+      width: 20px; height: 20px; display: grid; place-items: center;
+      font-size: 11px; font-weight: 600; border: 1px solid var(--field-border);
+ color: var(--text-mid);
+    }
+    .variant.active { background: var(--hit); color: var(--hit-text); border-color: var(--hit); }
+    .variant:hover:not(.active) { border-color: var(--field-border-hover); }
+    .picker-right { display: flex; flex-direction: column; align-items: flex-end; gap: 9px; }
+    .nav-arrows { display: flex; gap: 6px; }
+    .nav-arrow {
+      width: 28px; height: 26px; display: grid; place-items: center;
+      border: 1px solid var(--field-border); color: var(--text-mid); font-size: 13px;
+    }
+    .nav-arrow:hover { border-color: var(--field-border-hover); color: var(--text); }
+    .browse-link { font-size: 11.5px; color: var(--text-dim); display: inline-flex; align-items: center; gap: 4px; }
+    .browse-link:hover { color: var(--text); }
+
+    /* ── Grid card ───────────────────────────────────────────────────────── */
+    .grid-card {
+      background: var(--grid-bg); border: 1px solid var(--cell-border);
+      display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: auto;
+    }
+    .grid-row { display: flex; align-items: stretch; flex: 1 1 0; min-height: 30px; border-bottom: 1px solid var(--cell-border); }
+    .grid-row:last-child { border-bottom: 0; }
+    .grid-row.ac-row .cell { color: var(--accent-text); }
+    .row-label {
+      flex: none; width: 46px; display: flex; align-items: center; padding-left: 14px;
+      font-size: 12px; font-weight: 700; color: var(--text-mid); letter-spacing: .02em;
+    }
+    .ac-row .row-label { color: var(--text-dim); }
+    .cells { display: flex; flex: 1 1 auto; }
+    .cell {
+      flex: 1 1 0; min-width: 0; display: grid; place-items: center;
+      border-left: 1px solid var(--cell-border); background: var(--cell-empty);
+      font-size: 12px; font-weight: 600; color: transparent; cursor: pointer;
+      font-variant-numeric: tabular-nums;
+    }
+    .cell.shade { background: var(--cell-shade); }
+    .cell.hit { background: var(--hit); color: var(--hit-text); }
+    .ac-row .cell.hit { background: transparent; color: var(--accent-text); }   /* carets, not blocks */
+    .cell:hover:not(.hit) { box-shadow: inset 0 0 0 1.5px var(--field-border-hover); }
+    .ac-row { border-bottom: 1px solid var(--cell-border); }
+
+    /* ── Legend ──────────────────────────────────────────────────────────── */
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; flex: none; }
+    .legend-item { font-size: 10.5px; color: var(--text-dim); }
+    .legend-item b { color: var(--text-mid); font-weight: 600; margin-right: 4px; }
+
+    /* ── Bottom controls ─────────────────────────────────────────────────── */
+    .controls { display: flex; align-items: center; justify-content: space-between; flex: none; gap: 16px; }
+    .controls-left, .controls-right { display: flex; align-items: center; gap: 10px; }
+    .ctl { display: flex; align-items: center; gap: 7px; }
+    .ctl-label { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--text-dim); }
+    .field {
+      display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 11px;
+      font-size: 12px; border: 1px solid var(--field-border);
+      background: var(--bg); color: var(--text); white-space: nowrap;
+    }
+    .field:hover { border-color: var(--field-border-hover); }
+    .field .caret { font-size: 9px; color: var(--text-dim); margin-left: 2px; }
+    .btn {
+      height: 32px; padding: 0 16px; display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 500; border: 1px solid var(--field-border);
+      background: var(--bg); color: var(--text);
+    }
+    .btn:hover { border-color: var(--field-border-hover); }
+    .btn.primary { background: var(--primary-bg); color: var(--primary-text); border-color: var(--primary-bg); font-weight: 600; }
+    .btn.primary:hover { opacity: .9; }
+    .btn svg { width: 12px; height: 12px; }
+    .to-label { font-size: 11px; color: var(--text-dim); }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    .footer { display: flex; align-items: center; justify-content: space-between; flex: none; }
+    .attribution { font-size: 10px; color: var(--text-dim); }
+    .about-link { font-size: 11px; color: var(--text-dim); }
+    .about-link:hover { color: var(--text); text-decoration: underline; }
+
+    /* ── Custom dropdown popover ─────────────────────────────────────────── */
+    .menu {
+      position: fixed; z-index: 40; min-width: 180px; max-height: 320px; overflow: auto;
+      background: var(--menu-bg); border: 1px solid var(--field-border);
+      box-shadow: var(--menu-shadow); padding: 5px; display: none;
+    }
+    .menu.open { display: block; }
+    .menu-search {
+      width: 100%; height: 30px; padding: 0 10px; margin-bottom: 4px; font: inherit; font-size: 12px;
+      color: var(--text); background: var(--bg); border: 1px solid var(--field-border);
+      outline: none;
+    }
+    .menu-search::placeholder { color: var(--text-dim); }
+    .menu-item {
+      display: flex; align-items: flex-start; gap: 9px; padding: 7px 9px;
+      cursor: pointer;
+    }
+    .menu-item:hover { background: var(--chip-bg); }
+    .menu-check { flex: none; width: 14px; padding-top: 1px; color: var(--text); font-size: 11px; }
+    .menu-body { display: flex; flex-direction: column; gap: 1px; }
+    .menu-title { font-size: 12.5px; }
+    .menu-title .ct { color: var(--text-dim); font-variant-numeric: tabular-nums; margin-left: 6px; }
+    .menu-sub { font-size: 10.5px; color: var(--text-dim); line-height: 1.3; }
+
+    /* ── Browse view ─────────────────────────────────────────────────────── */
+    .browse-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex: none; }
+    .browse-title-wrap { display: flex; align-items: center; gap: 12px; }
+    .back-btn { width: 26px; height: 26px; display: grid; place-items: center; border: 1px solid var(--field-border); color: var(--text-mid); }
+    .back-btn:hover { border-color: var(--field-border-hover); color: var(--text); }
+    .browse-title { font-size: 18px; font-weight: 600; }
+    .browse-sub { font-size: 11.5px; color: var(--text-dim); }
+    .browse-search-wrap { display: flex; align-items: center; gap: 10px; }
+    .search-box {
+      display: flex; align-items: center; gap: 8px; height: 32px; width: 230px; padding: 0 11px;
+      border: 1px solid var(--field-border);
+    }
+    .search-box input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 12px; color: var(--text); }
+    .search-box input::placeholder { color: var(--text-dim); }
+    .search-box svg { width: 13px; height: 13px; color: var(--text-dim); }
+    .close-btn { width: 30px; height: 30px; display: grid; place-items: center; border: 1px solid var(--field-border); color: var(--text-mid); }
+    .close-btn:hover { border-color: var(--field-border-hover); color: var(--text); }
+    .filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; flex: none; }
+    .filter-chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px;
+      font-size: 11.5px; color: var(--text-mid); border: 1px solid var(--field-border);
+    }
+    .filter-chip .ct { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+    .filter-chip:hover { border-color: var(--field-border-hover); }
+    .filter-chip.active { background: var(--hit); color: var(--hit-text); border-color: var(--hit); }
+    .filter-chip.active .ct { color: var(--hit-text); opacity: .7; }
+    .browse-cols { display: flex; gap: 30px; flex: 1 1 auto; min-height: 0; overflow: auto; }
+    .browse-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+    .group-head {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+      margin: 14px 0 6px; font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-mid);
+    }
+    .browse-col > .group-head:first-child { margin-top: 0; }
+    .group-count { font-size: 10px; font-weight: 400; color: var(--text-dim); letter-spacing: 0; }
+    .browse-row { display: flex; align-items: center; gap: 14px; padding: 5px 6px; cursor: pointer; }
+    .browse-row:hover { background: var(--chip-bg); }
+    .browse-row.active { background: var(--chip-bg); }
+    .browse-row.active .browse-row-name { font-weight: 700; }
+    .barcode { flex: none; display: flex; align-items: flex-end; gap: 1px; width: 96px; height: 18px; }
+    .bar { flex: 1 1 0; background: var(--text-mid); min-height: 1px; }
+    .bar.off { background: var(--cell-border); }
+    .browse-row-name { flex: 1 1 auto; font-size: 12.5px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row-variants { display: flex; gap: 4px; flex: none; }
+    .row-variants .variant { width: 16px; height: 16px; font-size: 9px; }
+
+    /* ── About overlay ───────────────────────────────────────────────────── */
+    .overlay { position: fixed; inset: 0; background: var(--overlay); display: none; place-items: center; z-index: 60; }
+    .overlay.open { display: grid; }
+    .about-card {
+      width: 440px; background: var(--bg); border: 1px solid var(--rule-soft);
+      box-shadow: var(--menu-shadow); padding: 26px; display: flex; flex-direction: column; gap: 16px;
+    }
+    .about-head { display: flex; align-items: center; justify-content: space-between; }
+    .about-eyebrow { font-size: 10.5px; font-weight: 600; letter-spacing: .22em; color: var(--text-dim); }
+    .about-wordmark .ab-title { font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
+    .about-wordmark .ab-tagline { font-size: 12.5px; color: var(--text-dim); margin-top: 3px; }
+    .about-meta { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+    .about-license { font-size: 11.5px; color: var(--text-dim); line-height: 1.45; }
+    .about-studio { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--text); text-decoration: none; }
+    .about-studio svg { width: 13px; height: 13px; }
+    .about-code { font-size: 10.5px; color: var(--text-faint); line-height: 1.4; }
+  </style>
+</head>
+<body data-theme="light">
+  <div id="app">
+    <!-- ════════════════════ MAIN / EDITOR VIEW ════════════════════ -->
+    <section class="view active" id="view-main">
+      <div class="header">
+        <div>
+          <div class="title">Pocket Operations</div>
+          <div class="subtitle">A Collection of Drum Machine Patterns</div>
+        </div>
+        <div class="header-right">
+          <button class="count-pill" id="count-pill" type="button"><span id="count-n">0</span> patterns ›</button>
+          <button class="theme-toggle" id="theme-toggle" type="button" title="Toggle light / dark"></button>
+        </div>
+      </div>
+      <hr class="rule" />
+
+      <div class="picker">
+        <div class="picker-left">
+          <div class="picker-meta">
+            <button class="genre-chip" id="genre-chip" type="button"><span id="genre-name">—</span><span class="caret"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.2 5 5 9 1.2"/></svg></span></button>
+            <span class="pattern-count" id="pattern-count"></span>
+          </div>
+          <div class="pattern-name-row">
+            <div class="pattern-name" id="pattern-name">—</div>
+            <div class="variants" id="variants"></div>
+          </div>
+        </div>
+        <div class="picker-right">
+          <div class="nav-arrows">
+            <button class="nav-arrow" id="prev" type="button" title="Previous pattern">‹</button>
+            <button class="nav-arrow" id="next" type="button" title="Next pattern">›</button>
+          </div>
+          <button class="browse-link" id="open-browse" type="button">Browse library ›</button>
+        </div>
+      </div>
+
+      <div class="grid-card" id="grid"></div>
+
+      <div class="legend" id="legend"></div>
+
+      <div class="controls">
+        <div class="controls-left">
+          <div class="ctl"><span class="ctl-label">Kit</span><button class="field" id="f-mapping" type="button"><span id="mapping-val">PO kit</span><span class="caret"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.2 5 5 9 1.2"/></svg></span></button></div>
+          <div class="ctl"><span class="ctl-label">Bars</span><button class="field" id="f-bars" type="button"><span id="bars-val">1 bar</span><span class="caret"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.2 5 5 9 1.2"/></svg></span></button></div>
+          <div class="ctl"><span class="ctl-label">Swing</span><button class="field" id="f-swing" type="button"><span id="swing-val">0%</span><span class="caret"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.2 5 5 9 1.2"/></svg></span></button></div>
+        </div>
+        <div class="controls-right">
+          <button class="btn" id="audition" type="button">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M3 2.3v7.4l6-3.7z"/></svg>
+            <span id="audition-label">Audition</span>
+          </button>
+          <span class="to-label" id="to-label">to</span>
+          <button class="field" id="f-target" type="button"><span id="target-val">This slot</span><span class="caret"><svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1.2 5 5 9 1.2"/></svg></span></button>
+          <button class="btn primary" id="insert" type="button">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 2v5.2h5.6M6.6 5.4 9 7.4 6.6 9.4"/></svg>
+            <span id="insert-label">Insert</span>
+          </button>
+        </div>
+      </div>
+      <hr class="rule soft" />
+      <div class="footer">
+        <span class="attribution">Patterns from <i>Pocket Operations</i> by Paul Wenzel · © Shitty Recording Studio</span>
+        <button class="about-link" id="open-about" type="button">About</button>
+      </div>
+    </section>
+
+    <!-- ════════════════════ BROWSE / LIBRARY VIEW ════════════════════ -->
+    <section class="view" id="view-browse">
+      <div class="browse-top">
+        <div class="browse-title-wrap">
+          <button class="back-btn" id="browse-back" type="button">‹</button>
+          <div>
+            <div class="browse-title">Browse Library</div>
+            <div class="browse-sub" id="browse-sub"></div>
+          </div>
+        </div>
+        <div class="browse-search-wrap">
+          <div class="search-box">
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="6" cy="6" r="4.2"/><path d="M9.3 9.3 12.5 12.5"/></svg>
+            <input id="browse-search" type="text" placeholder="Search patterns…" />
+          </div>
+          <button class="close-btn" id="browse-close" type="button">✕</button>
+        </div>
+      </div>
+      <hr class="rule soft" />
+      <div class="filter-row" id="filter-row"></div>
+      <div class="browse-cols" id="browse-cols"></div>
+    </section>
+  </div>
+
+  <!-- floating dropdown popover (single, repositioned per use) -->
+  <div class="menu" id="menu"></div>
+
+  <!-- About overlay -->
+  <div class="overlay" id="about-overlay">
+    <div class="about-card">
+      <div class="about-head">
+        <span class="about-eyebrow">ABOUT</span>
+        <button class="close-btn" id="about-close" type="button">✕</button>
+      </div>
+      <div class="about-wordmark">
+        <div class="ab-title">Pocket Operations</div>
+        <div class="ab-tagline">A Collection of Drum Machine Patterns</div>
+      </div>
+      <div class="about-meta" id="about-meta"></div>
+      <hr class="rule soft" />
+      <div class="about-license">© 2024 Paul Wenzel. Some Rights Reserved. Material in this booklet is intended for educational use.</div>
+      <a class="about-studio" id="about-studio" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 2H2v10h10V9M8 2h4v4M12 2 6.5 7.5"/></svg>
+        shittyrecording.studio
+      </a>
+      <div class="about-code">Extension code © E. T. Carter · MIT License.  Pattern data remains © Paul Wenzel and is not relicensed.</div>
+    </div>
+  </div>
+
+  <script>
+    // Host injects the invocation context here (entry point, initial pattern,
+    // theme, tempo); the host replaces the token below before showing the dialog.
+    window.__CTX__ = __CTX_JSON__;
+  </script>
+  <script>/*__UI_BUNDLE__*/</script>
+</body>
+</html>
