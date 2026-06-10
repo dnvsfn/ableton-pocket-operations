@@ -1,0 +1,6 @@
+scripts/.venv/
+__pycache__/
+*.pyc
+node_modules/
+*.ablx
+.DS_Store
