@@ -1,7 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.map
+*.tsbuildinfo
+
+# Packaged extensions
+*.ablx
+
+# Per-machine Extension Host path
+.env
+
+# macOS
+.DS_Store
+._*
+
+# Logs
+*.log
+
+# Python extractor venv
 scripts/.venv/
 __pycache__/
 *.pyc
-node_modules/
-*.ablx
-.DS_Store
-dist/
+
+# Ableton SDK + CLI tarballs — proprietary beta, not redistributed.
+vendor/

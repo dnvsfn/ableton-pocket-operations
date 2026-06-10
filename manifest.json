@@ -1,0 +1,7 @@
+{
+  "name": "Pocket Operations",
+  "author": "E. T. Carter",
+  "entry": "dist/extension.js",
+  "version": "0.0.0",
+  "minimumApiVersion": "1.0.0"
+}

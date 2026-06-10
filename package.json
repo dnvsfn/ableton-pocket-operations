@@ -7,15 +7,28 @@
   "repository": "github:ecarter/ableton-pocket-operations",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.11.0" },
+  "main": "dist/extension.js",
+  "engines": { "node": ">=24.14.1" },
   "scripts": {
+    "build": "tsx build.ts --production",
+    "build:dev": "tsx build.ts",
+    "start": "npm run build:dev && extensions-cli run",
+    "package": "npm run build && extensions-cli package",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "typecheck:ci": "tsc -p tsconfig.ci.json --noEmit"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "esbuild": "0.28.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
+  },
+  "//optionalDependencies": "Ableton SDK + CLI are a proprietary beta resolved from gitignored vendor/*.tgz. 'optional' so npm install / CI succeed without them (pure tests need no SDK); building/packaging the .ablx does require them.",
+  "optionalDependencies": {
+    "@ableton-extensions/sdk": "file:./vendor/ableton-extensions-sdk-1.0.0-beta.0.tgz",
+    "@ableton-extensions/cli": "file:./vendor/ableton-extensions-cli-1.0.0-beta.0.tgz"
   }
 }
