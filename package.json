@@ -1,6 +1,6 @@
 {
   "name": "ableton-pocket-operations",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Pocket Operations — a right-click drum-pattern library extension for Ableton Live 12, built on the official Extensions SDK. Patterns from Paul Wenzel's Pocket Operations booklet.",
   "author": "E. T. Carter <hi@ecarter.me>",
   "license": "MIT",
