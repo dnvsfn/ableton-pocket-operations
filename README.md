@@ -4,8 +4,6 @@ A right-click drum-pattern library for Ableton Live 12, built on the official
 Extensions SDK. Browse the classic drum-machine patterns from Paul Wenzel's
 *Pocket Operations* booklet and drop them as MIDI clips onto a Drum Rack track.
 
-Sibling of [Midnight Tools](https://github.com/ecarter/ableton-midnight-tools).
-
 ## Status
 
 - **P0 — pattern data** ✅ 269 patterns extracted from the booklet PDF by
