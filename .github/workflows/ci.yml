@@ -1,0 +1,34 @@
+name: CI
+
+# Runs the SDK-free quality gates on every push/PR. The Ableton SDK + CLI are a
+# proprietary beta resolved from gitignored vendor/*.tgz and declared as
+# optionalDependencies, so `npm ci` skips them here. The pure pattern logic and
+# the webview typecheck with no SDK (tsconfig.ci.json excludes the host file,
+# src/extension.ts); the .ablx build runs locally, where the SDK is present.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Typecheck + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install (SDK skipped — optional, not in CI)
+        run: npm ci
+      - name: Typecheck (SDK-free targets)
+        run: npm run typecheck:ci
+      - name: Unit tests
+        run: npm test
