@@ -6,6 +6,8 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-01
+
 The initial feature set. The pattern **data** is redistributed with Paul
 Wenzel's permission (granted by email, 2026-06-30) and remains his property, not
 relicensed — see [`ATTRIBUTION.md`](ATTRIBUTION.md).
@@ -27,4 +29,5 @@ relicensed — see [`ATTRIBUTION.md`](ATTRIBUTION.md).
 - **27 unit tests** over the mapping, grid, and pattern-bank logic; CI runs the
   SDK-free typecheck + tests.
 
-[Unreleased]: https://github.com/ecarter/ableton-pocket-operations/commits/main
+[Unreleased]: https://github.com/dnvsfn/ableton-pocket-operations/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/dnvsfn/ableton-pocket-operations/compare/v0.1.0...v0.1.0
