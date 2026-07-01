@@ -2655,7 +2655,7 @@
         },
         {
           "type": "frame",
-          "id": "M20UO",
+          "id": "UQlpt",
           "name": "Footer",
           "width": "fill_container",
           "justifyContent": "space_between",
@@ -2663,17 +2663,17 @@
           "children": [
             {
               "type": "text",
-              "id": "cgL7L",
+              "id": "a5DxTH",
               "name": "Attribution",
               "fill": "#8A8A8A",
-              "content": "Patterns from Pocket Operations by Paul Wenzel · shittyrecording.studio",
+              "content": "Patterns from Pocket Operations by Paul Wenzel · Donations to charities at shittyrecording.studio appreciated",
               "fontFamily": "Inter",
               "fontSize": 11,
               "fontWeight": "normal"
             },
             {
               "type": "text",
-              "id": "WTpsM",
+              "id": "CLMzX",
               "name": "AboutLink",
               "fill": "#121212",
               "content": "About",
@@ -12522,7 +12522,7 @@
         },
         {
           "type": "frame",
-          "id": "IvI5S",
+          "id": "l7Imvd",
           "name": "D-Footer",
           "width": "fill_container",
           "justifyContent": "space_between",
@@ -12530,18 +12530,18 @@
           "children": [
             {
               "type": "text",
-              "id": "HXpm3",
-              "name": "D-Attr",
+              "id": "vwkrG",
+              "name": "D-Attribution",
               "fill": "#8E8E8E",
-              "content": "Patterns from Pocket Operations by Paul Wenzel · shittyrecording.studio",
+              "content": "Patterns from Pocket Operations by Paul Wenzel · Donations to charities at shittyrecording.studio appreciated",
               "fontFamily": "Inter",
               "fontSize": 11,
               "fontWeight": "normal"
             },
             {
               "type": "text",
-              "id": "VxAHE",
-              "name": "D-About",
+              "id": "V2gUa",
+              "name": "D-AboutLink",
               "fill": "#ECECEC",
               "content": "About",
               "fontFamily": "Inter",
