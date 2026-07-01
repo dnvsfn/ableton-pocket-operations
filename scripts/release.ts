@@ -18,7 +18,7 @@ import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
 
-const REPO = "https://github.com/ecarter/ableton-pocket-operations";
+const REPO = "https://github.com/dnvsfn/ableton-pocket-operations";
 
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");

@@ -6,9 +6,9 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
-The initial feature set. Public release of the pattern **data** is gated on
-licensing (see [`ATTRIBUTION.md`](ATTRIBUTION.md)); this entry tracks the build
-regardless.
+The initial feature set. The pattern **data** is redistributed with Paul
+Wenzel's permission (granted by email, 2026-06-30) and remains his property, not
+relicensed — see [`ATTRIBUTION.md`](ATTRIBUTION.md).
 
 ### Added
 
