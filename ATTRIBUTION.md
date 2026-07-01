@@ -13,5 +13,8 @@ The pattern **data** remains the property of Paul Wenzel and is included here
 clearly labeled; it is **not** relicensed. The **code** in this repository is
 MIT-licensed (© E. T. Carter).
 
-> ⚠️ Public redistribution of the pattern data is not yet cleared — confirm the
-> license / contact the author before any public release.
+The data is redistributed here with Paul Wenzel's permission, granted by email
+on 2026-06-30.
+
+> If you find these patterns useful, donations to charities on the author's
+> website (https://shittyrecording.studio) are appreciated.
