@@ -5,6 +5,12 @@ Extensions SDK. Browse the classic drum-machine patterns from Paul Wenzel's
 *Pocket Operations* booklet, edit them on a 16-step grid, and drop them as MIDI
 clips onto a Drum Rack track.
 
+Built on the official **Ableton Extensions SDK 1.0.0-beta.0**.
+
+> **Install:** grab the latest `.ablx` from the
+> [**Releases**](https://github.com/dnvsfn/ableton-pocket-operations/releases/latest)
+> page and drop it on Live's Settings → Extensions (Live 12 Suite Beta 12.4.5+).
+
 ## Screenshots
 
 | Browse & edit (light) | Dark theme |
