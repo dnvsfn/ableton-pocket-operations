@@ -8,7 +8,9 @@
   "private": true,
   "type": "module",
   "main": "dist/extension.js",
-  "engines": { "node": ">=24.14.1" },
+  "engines": {
+    "node": ">=24.14.1"
+  },
   "scripts": {
     "build": "tsx build.ts --production",
     "build:dev": "tsx build.ts",
