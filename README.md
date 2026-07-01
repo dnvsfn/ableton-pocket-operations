@@ -1,5 +1,9 @@
 # Pocket Operations — Ableton Live extension
 
+[![CI](https://github.com/dnvsfn/ableton-pocket-operations/actions/workflows/ci.yml/badge.svg)](https://github.com/dnvsfn/ableton-pocket-operations/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/dnvsfn/ableton-pocket-operations?sort=semver)](https://github.com/dnvsfn/ableton-pocket-operations/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-46C7B8.svg)](LICENSE)
+
 A right-click drum-pattern library for Ableton Live 12, built on the official
 Extensions SDK. Browse the classic drum-machine patterns from Paul Wenzel's
 *Pocket Operations* booklet, edit them on a 16-step grid, and drop them as MIDI
