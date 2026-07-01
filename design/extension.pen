@@ -1,5 +1,5 @@
 {
-  "version": "2.13",
+  "version": "2.14",
   "children": [
     {
       "type": "frame",
@@ -51,7 +51,8 @@
                   "fill": "#8A8A8A",
                   "content": "A Collection of Drum Machine Patterns",
                   "fontFamily": "Inter",
-                  "fontSize": 11.5
+                  "fontSize": 11.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -84,7 +85,8 @@
                       "fill": "#9A917D",
                       "content": "269 patterns",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -2152,7 +2154,8 @@
                   "fill": "#A0988A",
                   "content": "Accent",
                   "fontFamily": "Inter",
-                  "fontSize": 10.5
+                  "fontSize": 10.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2181,7 +2184,8 @@
                   "fill": "#A0988A",
                   "content": "Closed Hat",
                   "fontFamily": "Inter",
-                  "fontSize": 10.5
+                  "fontSize": 10.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2210,7 +2214,8 @@
                   "fill": "#A0988A",
                   "content": "Cowbell",
                   "fontFamily": "Inter",
-                  "fontSize": 10.5
+                  "fontSize": 10.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2239,7 +2244,8 @@
                   "fill": "#A0988A",
                   "content": "Hi Conga",
                   "fontFamily": "Inter",
-                  "fontSize": 10.5
+                  "fontSize": 10.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2268,7 +2274,8 @@
                   "fill": "#A0988A",
                   "content": "Snare",
                   "fontFamily": "Inter",
-                  "fontSize": 10.5
+                  "fontSize": 10.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -2297,7 +2304,8 @@
                   "fill": "#A0988A",
                   "content": "Bass Drum",
                   "fontFamily": "Inter",
-                  "fontSize": 10.5
+                  "fontSize": 10.5,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -2660,7 +2668,8 @@
               "fill": "#8A8A8A",
               "content": "Patterns from Pocket Operations by Paul Wenzel · shittyrecording.studio",
               "fontFamily": "Inter",
-              "fontSize": 11
+              "fontSize": 11,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -2758,7 +2767,8 @@
                       "fill": "#8A8A8A",
                       "content": "269 patterns · 23 genres",
                       "fontFamily": "Inter",
-                      "fontSize": 11
+                      "fontSize": 11,
+                      "fontWeight": "normal"
                     }
                   ]
                 }
@@ -2805,7 +2815,8 @@
                       "fill": "#8A8A8A",
                       "content": "Search patterns…",
                       "fontFamily": "Inter",
-                      "fontSize": 12.5
+                      "fontSize": 12.5,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -3181,7 +3192,8 @@
                           "fill": "#8A8A8A",
                           "content": "5 patterns",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -4139,7 +4151,8 @@
                           "fill": "#8A8A8A",
                           "content": "26 patterns",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -5294,7 +5307,8 @@
                           "fill": "#8A8A8A",
                           "content": "10 patterns",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -6262,7 +6276,8 @@
                           "fill": "#8A8A8A",
                           "content": "9 patterns",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -7289,7 +7304,8 @@
                           "fill": "#8A8A8A",
                           "content": "9 patterns",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -8031,7 +8047,8 @@
                           "fill": "#8A8A8A",
                           "content": "5 patterns",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -8898,7 +8915,8 @@
               "fill": "#8A8A8A",
               "content": "A Collection of Drum Machine Patterns",
               "fontFamily": "Inter",
-              "fontSize": 12.5
+              "fontSize": 12.5,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -8919,7 +8937,8 @@
               "width": "fill_container",
               "content": "Compiled by Paul Wenzel — Minneapolis, MN",
               "fontFamily": "Inter",
-              "fontSize": 12.5
+              "fontSize": 12.5,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -8930,7 +8949,8 @@
               "width": "fill_container",
               "content": "Second Edition · Revision 3.1 · 2024",
               "fontFamily": "Inter",
-              "fontSize": 12.5
+              "fontSize": 12.5,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
@@ -8941,7 +8961,8 @@
               "width": "fill_container",
               "content": "ISBN 978-0-359-84908-6",
               "fontFamily": "Inter",
-              "fontSize": 12.5
+              "fontSize": 12.5,
+              "fontWeight": "normal"
             }
           ]
         },
@@ -8963,7 +8984,8 @@
           "content": "© 2024 Paul Wenzel. Some Rights Reserved. Material in this booklet is intended for educational use.",
           "lineHeight": 1.45,
           "fontFamily": "Inter",
-          "fontSize": 11.5
+          "fontSize": 11.5,
+          "fontWeight": "normal"
         },
         {
           "type": "frame",
@@ -8996,6 +9018,19 @@
         },
         {
           "type": "text",
+          "id": "evHKB",
+          "name": "AbDonate",
+          "fill": "#8A8A8A",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "If you find these patterns useful, donations to charities on the author's website are appreciated.",
+          "lineHeight": 1.45,
+          "fontFamily": "Inter",
+          "fontSize": 11.5,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
           "id": "JjL4S",
           "name": "AbCode",
           "fill": "#AEA69A",
@@ -9004,7 +9039,8 @@
           "content": "Extension code © E. T. Carter · MIT License.  Pattern data remains © Paul Wenzel and is not relicensed.",
           "lineHeight": 1.4,
           "fontFamily": "Inter",
-          "fontSize": 10.5
+          "fontSize": 10.5,
+          "fontWeight": "normal"
         }
       ]
     },
@@ -9087,7 +9123,8 @@
                       "fill": "#8A8A8A",
                       "content": "Filter genres…",
                       "fontFamily": "Inter",
-                      "fontSize": 12
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -9547,7 +9584,8 @@
                           "width": "fill_container",
                           "content": "Chromatic from C1 · matches the booklet",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -9603,7 +9641,8 @@
                           "width": "fill_container",
                           "content": "Standard GM percussion map",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -9706,7 +9745,8 @@
                           "width": "fill_container",
                           "content": "Replace the clicked clip slot",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     },
@@ -9772,7 +9812,8 @@
                           "width": "fill_container",
                           "content": "Next empty slot on this track",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -9828,7 +9869,8 @@
                           "width": "fill_container",
                           "content": "Fresh MIDI track for the pattern",
                           "fontFamily": "Inter",
-                          "fontSize": 10.5
+                          "fontSize": 10.5,
+                          "fontWeight": "normal"
                         }
                       ]
                     }
@@ -9844,7 +9886,7 @@
       "type": "frame",
       "id": "cC2rl",
       "x": 880,
-      "y": 1205,
+      "y": 1248,
       "name": "Pocket Operations — Dialog (Dark)",
       "clip": true,
       "width": 960,
@@ -9890,7 +9932,8 @@
                   "fill": "#8E8E8E",
                   "content": "A Collection of Drum Machine Patterns",
                   "fontFamily": "Inter",
-                  "fontSize": 11.5
+                  "fontSize": 11.5,
+                  "fontWeight": "normal"
                 }
               ]
             },
@@ -12509,5 +12552,6 @@
         }
       ]
     }
-  ]
+  ],
+  "fileToken": "f1e15201-84ee-4190-a180-3e85affc5125"
 }
